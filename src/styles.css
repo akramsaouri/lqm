@@ -1,0 +1,130 @@
+body {
+  margin: 0;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  padding-top: 8em;
+  background-color: #e1f0f8;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23f5fafd' fill-opacity='0.64' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  height: calc(100vh - 8em);
+}
+
+.alert {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-color: #d7c558;
+  padding: 0.6em 0;
+  margin-bottom: 8em;
+}
+
+.alert-content {
+  color: #776d30;
+  font-size: .9em;
+  margin: 0;
+}
+
+.alert-button {
+  background: none;
+  border: 1px solid #776d30;
+  color: #776d30;
+  font-size: inherit;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color .15s ease, color .15s ease;
+}
+
+.alert-button:hover {
+  color: #978a3c;
+  border-color: #978a3c;
+}
+
+.button {
+  border: none;
+  font-family: inherit;
+  font-size: 1em;
+  cursor: pointer;
+  padding: 20px 50px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  outline: none;
+  position: relative;
+  background-color: #56a8d7;
+  color: #033856;
+  box-shadow: 0 6px #2891cd;
+  border-radius: 10px;
+  min-width: 340px;
+}
+
+.button:hover {
+  box-shadow: 0 4px #2891cd;
+  top: 2px;
+}
+
+.button:active, .button:disabled {
+  background-color: #dee1e3;
+  box-shadow: 0 6px #cfd3d6;
+  color: #7f8b92;
+  cursor: not-allowed;
+}
+
+.album {
+  background: #aaffa9;
+  background: linear-gradient(to top, #f5fafd, #e1f0f8);
+  margin: 2em auto 0;
+  padding: 1em;
+  border-radius: 10px;
+  width: 340px;
+  border: 2px solid #99cae7;
+  cursor: pointer;
+}
+
+.album-img {
+  height: 300px;
+}
+
+.album-name {
+  color: #0471b0;
+  font-weight: 700;
+  font-size: 1.4em;
+}
+
+.album-play {
+  color: #024368;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  font-size: 1em;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.album-play:hover {
+  text-decoration: underline;
+}
+
+.album-play span {
+  margin-left: 0.5em;
+}
+
+.footer {
+  position: absolute;
+  bottom: 1em;
+  width: 100%;
+  text-align: center;
+  color: #7c8b94;
+}
+
+.footer a {
+  color: #024368;
+}
+
+.footer p {
+  margin: 0;
+}
