@@ -112,6 +112,7 @@ export default function App() {
                 onLoad={() =>
                   (albumImageRef.current.style.visibility = "visible")
                 }
+                className="album-img"
               />
               <p className="album-name">
                 {album.name} by {album.artist}
