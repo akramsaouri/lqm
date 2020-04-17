@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <p>
-        Made quick* and dirty by{" "}
+        Made quick and dirty by{" "}
         <a
           href="https://twitter.com/AkramSaouri"
           target="_blank"
