@@ -18,9 +18,9 @@ ReactDOM.render(
   rootElement
 );
 
-serviceWorker.unregister();
-// serviceWorker.register({
-//   onUpdate: () => {
-//     window.dispatchEvent(new Event("onSWRUpdate"));
-//   },
-// });
+// serviceWorker.unregister();
+serviceWorker.register({
+  onUpdate: () => {
+    window.dispatchEvent(new Event("onSWRUpdate"));
+  },
+});
