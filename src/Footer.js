@@ -18,7 +18,7 @@ const Footer = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          here
+          on github
         </a>
         .
       </p>
