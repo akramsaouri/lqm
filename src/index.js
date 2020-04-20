@@ -9,15 +9,16 @@ import SwNotification from "./SwNotification";
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <React.StrictMode>
-    <div className="App">
+    <main className="App">
       <SwNotification />
       <App />
-      <Footer />
-    </div>
+    </main>
+    <Footer />
   </React.StrictMode>,
   rootElement
 );
 
+// serviceWorker.unregister();
 serviceWorker.register({
   onUpdate: () => {
     window.dispatchEvent(new Event("onSWRUpdate"));
