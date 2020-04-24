@@ -57,9 +57,10 @@ export default function App() {
       cachedAlbumsRef.current = [...spotifyAlbums];
     } catch (e) {
       console.log(e);
-      if (e.message === "TOKEN_EXPIRED") {
+      if (e.status === 401) {
         setLoggedIn(false);
       } else {
+        // TODO: proper UI for this
         setState("error");
       }
     }

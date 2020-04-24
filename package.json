@@ -8,7 +8,8 @@
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-scripts": "3.0.1",
-    "react-spotify-login": "0.9.1"
+    "react-spotify-login": "0.9.1",
+    "spotify-auto-paging": "^0.0.3"
   },
   "devDependencies": {
     "typescript": "3.3.3"

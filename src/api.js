@@ -1,34 +1,12 @@
+import { fetchWithAutoPaging } from "spotify-auto-paging";
+
 export const key = "spotifyToken";
 const headers = () => ({
   Authorization: "Bearer " + localStorage.getItem(key),
 });
 
-const toJson = (res) => {
-  if (res.status === 401) {
-    localStorage.removeItem(key);
-    throw new Error("TOKEN_EXPIRED");
-  } else {
-    return res.json();
-  }
-};
-
-const doFetch = (url) => fetch(url, { headers: headers() }).then(toJson);
-
 export const getRandomInt = (max) => {
   return Math.floor(Math.random() * Math.floor(max));
-};
-
-const fetchWithAutoPaging = async ({ limit = 50, url }) => {
-  let results = [];
-  const autoPager = async (url) => {
-    const { next, items } = await doFetch(url);
-    results = [...results, ...items];
-    if (next) {
-      await autoPager(next);
-    }
-  };
-  await autoPager(`${url}?limit=${limit}`);
-  return results;
 };
 
 export const playTrack = async (albumUri) => {
@@ -48,8 +26,8 @@ export const playTrack = async (albumUri) => {
 
 export const fetchAlbums = async () => {
   return fetchWithAutoPaging({
-    limit: 50,
-    url: `https://api.spotify.com/v1/me/albums`,
+    initialUrl: `https://api.spotify.com/v1/me/albums`,
+    accessToken: localStorage.getItem(key),
   });
 };
 
