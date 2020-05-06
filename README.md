@@ -1,6 +1,6 @@
-# lqm (lqm.netlify.com)
+# lqm
 
-> Get a random Spotify album from your library
+> Get a random Spotify album from your library (lqm.netlify.com)
 
 ## Random how you ask?
 
