@@ -7,12 +7,14 @@ import {
   getRandomInt,
   fetchAlbums,
   normalizeAlbum,
+  fetchCurrentlyPlayedAlbum,
 } from "./api";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem(key));
   const [album, setAlbum] = useState(null);
   const [state, setState] = useState("idle");
+  const [currrentlyPlayedAlbum, setCurrrentlyPlayedAlbum] = useState(null);
   const stringCounterRef = useRef(0);
   const previousAlbumImage = usePrevious(album ? album.image : "");
   const albumImageRef = useRef(null);
@@ -32,6 +34,7 @@ export default function App() {
         // no more albums to randomize 🤷🏽‍♂️
         rejectedAlbums.current = [];
       }
+      // retry again
       return getRandomAlbum(albums);
     }
     return randomAlbum;
@@ -73,6 +76,32 @@ export default function App() {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
+  const refreshCurrentlyPlayedAlbum = () => {
+    fetchCurrentlyPlayedAlbum().then((album) => {
+      if (!album) return; // return early if no album is currently playing
+      setCurrrentlyPlayedAlbum(album);
+      const alreadyRejected = rejectedAlbums.current.find(
+        (id) => id === album.id
+      );
+      if (!alreadyRejected) {
+        rejectedAlbums.current.push(album.id);
+      }
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("focus", refreshCurrentlyPlayedAlbum);
+    return () => {
+      window.removeEventListener("focus", refreshCurrentlyPlayedAlbum);
+    };
+  }, []);
+
+  useEffect(() => {
+    refreshCurrentlyPlayedAlbum();
+  }, []);
+
+  useEffect(() => {}, [rejectedAlbums.current.length]);
+
   const currentAlbumImage = album ? album.image : "";
 
   useEffect(() => {
@@ -88,7 +117,7 @@ export default function App() {
         <SpotifyLogin
           clientId={process.env.REACT_APP_SPOTIFY_CLIENT_ID}
           redirectUri={window.location.protocol + "//" + window.location.host}
-          scope="user-library-read user-modify-playback-state"
+          scope="user-library-read user-modify-playback-state user-read-playback-state"
           onSuccess={onSpotifySuccess}
           onFailure={console.log}
           className="button"
@@ -104,6 +133,25 @@ export default function App() {
               ? "hang on tight 🕵🏽‍♂️"
               : strings[stringCounterRef.current]}
           </button>
+          {currrentlyPlayedAlbum && (
+            <p className="current-track">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              Currently listening to <span>{currrentlyPlayedAlbum.name} </span>{" "}
+              by <span>{currrentlyPlayedAlbum.artist}</span>.
+            </p>
+          )}
           {album && (
             <div className="album" onClick={() => playTrack(album.uri)}>
               <img

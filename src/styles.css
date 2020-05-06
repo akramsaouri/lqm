@@ -26,7 +26,7 @@ body {
 
 .alert-content {
   color: #776d30;
-  font-size: .9em;
+  font-size: 0.9em;
   line-height: 2;
   margin: 0;
 }
@@ -39,7 +39,7 @@ body {
   border-radius: 4px;
   outline: none;
   cursor: pointer;
-  transition: border-color .15s ease, color .15s ease;
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
 
 .alert-button:hover {
@@ -70,7 +70,8 @@ body {
   top: 2px;
 }
 
-.button:active, .button:disabled {
+.button:active,
+.button:disabled {
   background-color: #dee1e3;
   box-shadow: 0 6px #cfd3d6;
   color: #7f8b92;
@@ -132,15 +133,17 @@ body {
   margin: 0;
 }
 
-@media screen and (max-width:387px) {
+@media screen and (max-width: 387px) {
   .button {
     padding: 10px 20px;
     min-width: auto;
     margin-top: 4em;
-    font-size: .8em;
+    font-size: 0.8em;
   }
-  .footer p, .alert-content, .album-play {
-    font-size: .8em;
+  .footer p,
+  .alert-content,
+  .album-play {
+    font-size: 0.8em;
   }
   .album-name {
     font-size: 1.2em;
@@ -148,4 +151,18 @@ body {
   .album-img {
     height: auto;
   }
+}
+
+.current-track {
+  color: #3f82a6;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+
+.current-track span {
+  color: #0f446a;
+}
+
+.current-track svg {
+  vertical-align: middle;
 }

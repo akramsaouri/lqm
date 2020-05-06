@@ -40,3 +40,19 @@ export const normalizeAlbum = ({
   image: images[1].url,
   artist: artists[0].name,
 });
+
+export const fetchCurrentlyPlayedAlbum = async () => {
+  const url = `https://api.spotify.com/v1/me/player/currently-playing`;
+  const options = {
+    headers: headers(),
+  };
+  const res = await fetch(url, options);
+  if (res.status === 200) {
+    const data = await res.json();
+    if (data.context.type === "album") {
+      // only return track if it's played from an album
+      return normalizeAlbum(data.item);
+    }
+  }
+  return null;
+};
