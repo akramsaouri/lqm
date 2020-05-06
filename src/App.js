@@ -22,7 +22,7 @@ export default function App() {
   const rejectedAlbums = useRef([]);
   const totalAlbumsRef = useRef(196);
 
-  const onSpotifySuccess = ({ access_token }) => {
+  const handleSpotifySuccess = ({ access_token }) => {
     localStorage.setItem(key, access_token);
     setLoggedIn(true);
   };
@@ -100,8 +100,6 @@ export default function App() {
     refreshCurrentlyPlayedAlbum();
   }, []);
 
-  useEffect(() => {}, [rejectedAlbums.current.length]);
-
   const currentAlbumImage = album ? album.image : "";
 
   useEffect(() => {
@@ -118,7 +116,7 @@ export default function App() {
           clientId={process.env.REACT_APP_SPOTIFY_CLIENT_ID}
           redirectUri={window.location.protocol + "//" + window.location.host}
           scope="user-library-read user-modify-playback-state user-read-playback-state"
-          onSuccess={onSpotifySuccess}
+          onSuccess={handleSpotifySuccess}
           onFailure={console.log}
           className="button"
         />
