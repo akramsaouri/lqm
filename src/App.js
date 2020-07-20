@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./styles.css";
 import SpotifyLogin from "react-spotify-login";
+
 import {
   key,
-  playTrack,
   getRandomInt,
   fetchAlbums,
   normalizeAlbum,
   fetchCurrentlyPlayedAlbum,
 } from "./api";
+import "./styles.css";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem(key));
@@ -20,7 +20,7 @@ export default function App() {
   const albumImageRef = useRef(null);
   const cachedAlbumsRef = useRef(null);
   const rejectedAlbums = useRef([]);
-  const totalAlbumsRef = useRef(196);
+  const totalAlbumsRef = useRef(0);
 
   const handleSpotifySuccess = ({ access_token }) => {
     localStorage.setItem(key, access_token);
@@ -57,7 +57,8 @@ export default function App() {
       const spotifyAlbums = await fetchAlbums();
       setAlbum(getRandomAlbum(spotifyAlbums));
       setState("idle");
-      cachedAlbumsRef.current = [...spotifyAlbums];
+      cachedAlbumsRef.current = spotifyAlbums;
+      totalAlbumsRef.current = spotifyAlbums.length;
     } catch (e) {
       console.log(e);
       if (e.status === 401) {
@@ -115,7 +116,7 @@ export default function App() {
         <SpotifyLogin
           clientId={process.env.REACT_APP_SPOTIFY_CLIENT_ID}
           redirectUri={window.location.protocol + "//" + window.location.host}
-          scope="user-library-read user-modify-playback-state user-read-playback-state"
+          scope="user-library-read user-read-playback-state"
           onSuccess={handleSpotifySuccess}
           onFailure={console.log}
           className="button"
@@ -151,7 +152,7 @@ export default function App() {
             </p>
           )}
           {album && (
-            <div className="album" onClick={() => playTrack(album.uri)}>
+            <div className="album">
               <img
                 src={album.image}
                 alt={album.image}
@@ -164,8 +165,10 @@ export default function App() {
               <p className="album-name">
                 {album.name} by {album.artist}
               </p>
-              <button
-                onClick={() => playTrack(album.uri)}
+              <a
+                href={album.uri}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="album-play"
               >
                 <svg
@@ -184,7 +187,7 @@ export default function App() {
                   <path d="M10 8L16 12 10 16 10 8z" />
                 </svg>
                 <span>Click to open on spotify</span>
-              </button>
+              </a>
             </div>
           )}
         </>
@@ -194,16 +197,12 @@ export default function App() {
 }
 
 function usePrevious(value) {
-  // The ref object is a generic container whose current property is mutable ...
-  // ... and can hold any value, similar to an instance property on a class
   const ref = useRef();
 
-  // Store current value in ref
   useEffect(() => {
     ref.current = value;
-  }, [value]); // Only re-run if value changes
+  }, [value]);
 
-  // Return previous value (happens before update in useEffect above)
   return ref.current;
 }
 

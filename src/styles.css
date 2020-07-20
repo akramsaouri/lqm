@@ -85,7 +85,6 @@ body {
   border-radius: 10px;
   max-width: 340px;
   border: 2px solid #99cae7;
-  cursor: pointer;
 }
 
 .album-img {
@@ -110,6 +109,7 @@ body {
   font-size: 1em;
   margin: 0 auto;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .album-play:hover {
@@ -122,7 +122,7 @@ body {
 
 .footer {
   color: #7c8b94;
-  margin: 1em 0;
+  margin: 1em 0.5em;
 }
 
 .footer a {
